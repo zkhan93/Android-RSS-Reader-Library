@@ -114,7 +114,17 @@ public class RssItem implements Comparable<RssItem>, Parcelable {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
 			this.pubDate = dateFormat.parse(pubDate);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			try {
+				SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss", Locale.ENGLISH);
+				this.pubDate = dateFormat.parse(pubDate);
+			} catch (ParseException e) {
+				try {
+					SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.ENGLISH);
+					this.pubDate = dateFormat.parse(pubDate);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
